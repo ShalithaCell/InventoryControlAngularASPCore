@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
-using WebPortal.API.Model.BaseModel;
 
-namespace WebPortal.API.Model.DatabaseModels
+namespace WebPortal.API.Model.RequestModel
 {
-    public class Product : BaseEntity
+    public class Product
     {
         [Required]
         public string Name { get; set; }
@@ -16,8 +14,5 @@ namespace WebPortal.API.Model.DatabaseModels
 
         [Required]
         public int CategoryID { get; set; }
-
-        public ProductCategory productCategory { get; }
-
     }
 }
