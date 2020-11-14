@@ -1,1 +1,9 @@
-/* You can add global styles to this file, and also import other style files */
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+input.ng-invalid.ng-dirty{
+  border-bottom-color: #e91e63 !important;
+  box-shadow: 0 1px 0 0 #e91e63 !important;
+}
