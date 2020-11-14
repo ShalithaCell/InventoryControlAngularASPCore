@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebPortal.API.Model.BaseModel;
+using WebPortal.API.Model.DatabaseModels;
 using WebPortal.API.Model.IdentityModel;
 
 namespace WebPortal.API.Infrastructure.DAL
@@ -15,6 +16,9 @@ namespace WebPortal.API.Infrastructure.DAL
             : base(options)
         {
         }
+
+        public DbSet<ProductCategory> ProductCategories { get; set; }
+        public DbSet<Product> Products { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
