@@ -9,6 +9,7 @@ import { AuthComponent } from './auth/auth.component';
 import {appRoutes} from './routes';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule} from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import {FormsModule} from '@angular/forms';
     BrowserAnimationsModule,
     RouterModule.forRoot(appRoutes),
     NgbModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -13,6 +13,7 @@ using Newtonsoft.Json.Serialization;
 using WebPortal.API.ApplicationCore.Extensions;
 using WebPortal.API.ApplicationCore.Services;
 using WebPortal.API.Infrastructure.DAL;
+using WebPortal.API.Infrastructure.DAL.Seeder;
 using WebPortal.API.Infrastructure.Interfaces;
 using WebPortal.API.Model.IdentityModel;
 using WebPortal.API.Model.SystemModel;
@@ -91,7 +92,7 @@ namespace WebPortal.API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ApplicationDbContext context, RoleManager<AppRole> roleManager, UserManager<AppUser> userManager)
         {
             if (env.IsDevelopment())
             {
@@ -111,6 +112,10 @@ namespace WebPortal.API
             app.UseAuthentication();
 
             app.UseAuthorization();
+
+            // seeding database if not available default values
+            DbSeeder.SeedDb(context, roleManager);
+            DbSeeder.SeedUsers(userManager);
 
             app.UseEndpoints(endpoints =>
             {
