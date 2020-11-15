@@ -11,12 +11,27 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {MatCardModule} from '@angular/material/card';
+import { DataTablesModule } from 'angular-datatables';
+import { CategoriesComponent } from './home/categories/categories.component';
+import { ProductsComponent } from './home/products/products.component';
+import { CategoryAddDialogComponent } from './dialogs/category-add-dialog/category-add-dialog.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatButtonModule} from '@angular/material/button';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatRippleModule} from '@angular/material/core';
+import {ToastrModule} from 'ngx-toastr';
+import { ProductAddDialogComponent } from './dialogs/product-add-dialog/product-add-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    AuthComponent
+    AuthComponent,
+    CategoriesComponent,
+    ProductsComponent,
+    CategoryAddDialogComponent,
+    ProductAddDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +41,14 @@ import {MatCardModule} from '@angular/material/card';
     NgbModule,
     FormsModule,
     HttpClientModule,
-    MatCardModule
+    MatCardModule,
+    DataTablesModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatRippleModule,
+    ToastrModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,41 @@
+<mat-card-title>
+  <div class="row">
+    <div class="col-md-6">
+      {{title}}
+    </div>
+    <div class="col-md-6">
+      <div class="pull-right" style="float: right">
+        <button type="button" class="btn btn-success" (click)="openDialog('new', 0)">Add new product</button>
+      </div>
+    </div>
+  </div>
+</mat-card-title>
+<mat-card-content>
+  <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+    <thead>
+    <tr>
+      <th class="hide">ID</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Category</th>
+      <th style="width:100px">Edit</th>
+      <th style="width:100px">Remove</th>
+    </tr>
+    </thead>
+    <tbody *ngIf="products?.length != 0">
+    <tr *ngFor="let product of products">
+      <td class="hide">{{ product.id }}</td>
+      <td>{{ product.name }}</td>
+      <td>{{ product.description }}</td>
+      <td>{{ product.category }}</td>
+      <td style="width:100px"><button type="button" class="btn btn-info" (click)="editCategory(product.id, product.name, product.description, product.categoryID)">Edit</button></td>
+      <td style="width:100px"><button type="button" class="btn btn-danger" (click)="removeProduct(product.id)">Remove</button></td>
+    </tr>
+    </tbody>
+    <tbody *ngIf="products?.length == 0">
+    <tr>
+      <td colspan="3" class="no-data-available">No data!</td>
+    </tr>
+    <tbody>
+  </table>
+</mat-card-content>
