@@ -1,0 +1,39 @@
+<mat-card-title>
+  <div class="row">
+    <div class="col-md-6">
+      {{title}}
+    </div>
+    <div class="col-md-6">
+      <div class="pull-right" style="float: right">
+        <button type="button" class="btn btn-success" (click)="openDialog('new')">Add new category</button>
+      </div>
+    </div>
+  </div>
+</mat-card-title>
+<mat-card-content>
+  <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+    <thead>
+    <tr>
+      <th class="hide">ID</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th style="width:100px">Edit</th>
+      <th style="width:100px">Remove</th>
+    </tr>
+    </thead>
+    <tbody *ngIf="categories?.length != 0">
+    <tr *ngFor="let category of categories">
+      <td class="hide">{{ category.id }}</td>
+      <td>{{ category.name }}</td>
+      <td>{{ category.description }}</td>
+      <td style="width:100px"><button type="button" class="btn btn-info" (click)="editCategory(category.id, category.name, category.description)">Edit</button></td>
+      <td style="width:100px"><button type="button" class="btn btn-danger" (click)="removeCategory(category.id)">Remove</button></td>
+    </tr>
+    </tbody>
+    <tbody *ngIf="categories?.length == 0">
+    <tr>
+      <td colspan="3" class="no-data-available">No data!</td>
+    </tr>
+    <tbody>
+  </table>
+</mat-card-content>

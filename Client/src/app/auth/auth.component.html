@@ -1,0 +1,23 @@
+<div class="global-container">
+  <div class="card login-form">
+    <div class="card-body">
+      <h3 class="card-title text-center">Log in</h3>
+      <div class="card-text">
+        <form #loginForm="ngForm" (ngSubmit)="OnSubmit(userEmail.value,userPassword.value)">
+          <div class="form-group">
+            <label [for]="userEmail">Email address</label>
+            <input type="email" class="form-control form-control-sm" name="userEmail" #userEmail ngModel required>
+          </div>
+          <div class="form-group">
+            <label [for]="userPassword">Password</label>
+            <input type="password" class="form-control form-control-sm" name="userPassword" #userPassword ngModel required>
+          </div>
+          <div *ngIf="isLoginError">
+            <ngb-alert type="warning" >"Invalid email or password"</ngb-alert>
+          </div>
+          <button type="submit" [disabled]="!loginForm.valid" class="btn btn-primary btn-block">Sign in</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
