@@ -14,5 +14,18 @@ namespace WebPortal.API.Model.RequestModel
 
         [Required]
         public int CategoryID { get; set; }
+
     }
+
+    public class ProductUpdate
+    {
+        public int ID { get; set; }
+        [Required]
+        public string Name { get; set; }
+        public string Description { get; set; }
+
+        [Required]
+        public int CategoryID { get; set; }
+    }
+
 }
