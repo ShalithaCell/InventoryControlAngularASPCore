@@ -1,0 +1,21 @@
+<mat-card>
+  <mat-card-title>
+    Category
+  </mat-card-title>
+  <mat-card-content class="col-md-12">
+    <mat-form-field class="col-md-12">
+      <mat-label>Category name</mat-label>
+      <input #txtName matInput [(ngModel)]="data.name" required>
+    </mat-form-field>
+    <div class="fields-container">
+      <mat-form-field>
+        <input matInput placeholder="Input">
+      </mat-form-field>
+    </div>
+  </mat-card-content>
+  <mat-card-actions>
+    <button  type="button" [mat-dialog-close]="{type : ''}" class="btn btn-warning">Cancel</button>
+    <button [disabled]="!(data.name.length > 0 && data.description.length > 0)" type="button" [mat-dialog-close]="{id : data.id, name : data.name, description : data.description, type :data.typeAction}" cdkFocusInitial class="btn btn-success ml-2">Save</button>
+  </mat-card-actions>
+</mat-card>
+

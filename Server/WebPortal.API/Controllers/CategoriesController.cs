@@ -97,10 +97,42 @@ namespace WebPortal.API.Controllers
 
         }
 
+        [HttpPost("updateCategory")]
+        public async Task<IActionResult> Update([FromBody] CategoryUpdate data)
+        {
+            BaseAPIModel<ProductCategory> response = new BaseAPIModel<ProductCategory>();
+            response.status = false;
+            response.request = "Update Product Categories";
+
+            try
+            {
+                ProductCategory category = new ProductCategory
+                {
+                    ID = data.ID,
+                    Name = data.Name,
+                    Description = data.Description,
+                    IsActive = true,
+                    RegistedDate = DateTime.Now
+                };
+
+                _context.ProductCategories.Update(category);
+                await _context.SaveChangesAsync();
+
+                response.status = true;
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                response.error = ex.InnerException.Message;
+                return BadRequest(response);
+            }
+
+        }
+
 
         // DELETE api/<CategoriesController>/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        [HttpPost("deleteCategory")]
+        public async Task<IActionResult> Delete([FromBody] int id)
         {
             BaseAPIModel<ProductCategory> response = new BaseAPIModel<ProductCategory>();
             response.status = false;

@@ -17,7 +17,7 @@ namespace WebPortal.API.Model.DatabaseModels
         [Required]
         public int CategoryID { get; set; }
 
-        public ProductCategory productCategory { get; }
+        public ProductCategory productCategory { get; set; }
 
     }
 }

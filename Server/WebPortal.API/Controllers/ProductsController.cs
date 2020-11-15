@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using WebPortal.API.Infrastructure.DAL;
 using WebPortal.API.Model.DatabaseModels;
 using WebPortal.API.Model.ResponseModel;
@@ -28,12 +29,19 @@ namespace WebPortal.API.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            BaseAPIModel<Product> response = new BaseAPIModel<Product>();
+            BaseAPIModel<ProductResult> response = new BaseAPIModel<ProductResult>();
             response.status = false;
             response.request = "Product";
             try
             {
-                response.data = _context.Products.Where(o => o.IsActive == true).ToList();
+                response.data = _context.Products.Include(o => o.productCategory).Where(o => o.IsActive == true).Select(i => new ProductResult
+                {
+                    ID = i.ID,
+                    Name = i.Name,
+                    Description = i.Description,
+                    Category = i.productCategory.Name,
+                    CategoryID = i.CategoryID
+                }).ToList();
                 response.status = true;
 
                 return Ok(response);
@@ -98,9 +106,42 @@ namespace WebPortal.API.Controllers
             }
         }
 
+        [HttpPost("updateProduct")]
+        public async Task<IActionResult> Update([FromBody] Model.RequestModel.ProductUpdate data)
+        {
+            BaseAPIModel<Product> response = new BaseAPIModel<Product>();
+            response.status = false;
+            response.request = "Update Product";
+
+            try
+            {
+                Product product = new Product
+                {
+                    ID = data.ID,
+                    Name = data.Name,
+                    Description = data.Description,
+                    CategoryID = data.CategoryID,
+                    IsActive = true,
+                    RegistedDate = DateTime.Now
+                };
+
+                _context.Products.Update(product);
+                await _context.SaveChangesAsync();
+
+                response.status = true;
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                response.error = ex.InnerException.Message;
+                return BadRequest(response);
+            }
+
+        }
+
         // DELETE api/<ProductsController>/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        [HttpPost("deleteProduct")]
+        public async Task<IActionResult> Delete([FromBody] int id)
         {
             BaseAPIModel<Product> response = new BaseAPIModel<Product>();
             response.status = false;
@@ -112,7 +153,6 @@ namespace WebPortal.API.Controllers
                 {
                     ID = id
                 };
-
 
                 _context.Products.Remove(product);
                 await _context.SaveChangesAsync();
